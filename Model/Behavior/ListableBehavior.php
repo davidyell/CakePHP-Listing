@@ -3,11 +3,6 @@
  * Listable behaviour for appending a model to a list of items for a select
  *
  * @author David Yell <neon1024@gmail.com>
- *
- * Example usage,
- * $this->Package->Broadband->Behaviors->load('Listing.Listable', array('relatedModel' => array('name' => 'Provider')));
- * $broadbands = $this->Package->Broadband->find('listing');
- *
  */
 
 class ListableBehavior extends ModelBehavior {
