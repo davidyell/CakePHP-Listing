@@ -99,9 +99,9 @@ class ListableBehavior extends ModelBehavior {
         foreach ($results as $row) {
             if (isset($row[$model->name])) {
                 if ($this->settings['mode'] == 'string') {
-                    $list[$row[$model->name]['id']] = "(" . $row['Provider']['name'] . ") " . $row[$model->name]['name'];
+                    $list[$row[$model->name]['id']] = "(" . $row[$this->settings['relatedModel']['primaryKey']]['name'] . ") " . $row[$model->name]['name'];
                 } elseif ($this->settings['mode'] == 'array') {
-                    $list[$row['Provider']['name']][$row[$model->name]['id']] = $row[$model->name]['name'];
+                    $list[$row[$this->settings['relatedModel']['name']]['name']][$row[$model->name]['id']] = $row[$model->name]['name'];
                 } else {
                     throw new BadMethodCallException($this->settings['mode'] . ' is not a valid mode.');
                 }
