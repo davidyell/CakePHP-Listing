@@ -101,7 +101,7 @@ class ListableBehavior extends ModelBehavior {
                 } else if ($this->settings['mode'] == 'array') {
                     $list[$row['Provider']['name']][$row[$model->name]['id']] = $row[$model->name]['name'];
                 } else {
-                    throw new BadMethodCallException($this->mode.' is not a valid mode.');
+                    throw new BadMethodCallException($this->settings['mode'].' is not a valid mode.');
                 }
             }
         }
