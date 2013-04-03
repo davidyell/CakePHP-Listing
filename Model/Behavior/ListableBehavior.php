@@ -73,7 +73,7 @@ class ListableBehavior extends ModelBehavior {
  * @return array
  */
     public function _findListing(Model $model, $findMethod, $state, $query, $results = array()) {
-        if($state == 'before'){
+        if ($state == 'before') {
             $query['fields'] = array($model->primaryKey, $model->displayField);
             $query['contain'] = array(
                 $this->settings['relatedModel']['name'] => array(
@@ -92,16 +92,18 @@ class ListableBehavior extends ModelBehavior {
  * @param array $results Cake data array
  * @param boolean $primary
  * @return array Cake data array
+ *
+ * @throws BadMethodCallException
  */
     public function afterFind(Model $model, $results, $primary) {
-        foreach($results as $row){
+        foreach ($results as $row) {
             if (isset($row[$model->name])) {
                 if ($this->settings['mode'] == 'string') {
-                    $list[$row[$model->name]['id']] = "(".$row['Provider']['name'].") ".$row[$model->name]['name'];
-                } else if ($this->settings['mode'] == 'array') {
+                    $list[$row[$model->name]['id']] = "(" . $row['Provider']['name'] . ") " . $row[$model->name]['name'];
+                } elseif ($this->settings['mode'] == 'array') {
                     $list[$row['Provider']['name']][$row[$model->name]['id']] = $row[$model->name]['name'];
                 } else {
-                    throw new BadMethodCallException($this->settings['mode'].' is not a valid mode.');
+                    throw new BadMethodCallException($this->settings['mode'] . ' is not a valid mode.');
                 }
             }
         }
@@ -112,7 +114,5 @@ class ListableBehavior extends ModelBehavior {
             return $results;
         }
     }
-
-
 
 }
