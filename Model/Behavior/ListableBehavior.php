@@ -57,7 +57,7 @@ class ListableBehavior extends ModelBehavior {
         $model->findMethods = Hash::merge($model->findMethods, $this->findMethods);
 
         // If the behaviour has been configured, merge in the settings
-        if (isset($config['relatedModel'])) {
+        if (isset($config) && !empty($config)) {
             $this->settings = Hash::merge($this->settings, $config);
         }
     }
