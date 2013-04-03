@@ -1,0 +1,14 @@
+{
+    "name": "davidyell/listing",
+    "description": "Model behaviour to append a field into a list for a select box. The idea for this behaviour is that if you have a list of items which belong to another model, it will include that models name.",
+    "authors": [
+        {
+            "name": "David Yell",
+            "email": "neon1024@gmail.com"
+        }
+    ],
+    "type": "cakephp-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
