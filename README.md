@@ -8,12 +8,23 @@ So we change,
 array(
   1 => 'First',
   2 => 'Second'
-);  
+);
 ```
-Into
+Into this using string mode
 ```
 array(
   1 => '(Cats) First',
   2 => '(Dogs) Second'
-); 
+);
+```
+or, using array mode
+```
+array(
+  'Cats' => array(
+    1 => 'First',
+  ),
+  'Dogs' => array(
+    2 => 'Second'
+  )
+);
 ```
