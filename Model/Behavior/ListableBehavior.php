@@ -43,6 +43,15 @@ class ListableBehavior extends ModelBehavior {
     );
 
 /**
+ * Somewhere to store the find method we used to get data. This will mean that
+ * we only use the behaviour when we are using the 'listing' find type and not
+ * on all the other finds that the model might do.
+ *
+ * @var string
+ */
+    protected $findMethod;
+
+/**
  * Setup this behavior with the specified configuration settings.
  *
  * @param Model $model Model using this behavior
@@ -85,6 +94,7 @@ class ListableBehavior extends ModelBehavior {
                     'fields' => array($this->settings[$model->alias]['relatedModelPrimaryKey'], $this->settings[$model->alias]['relatedModelDisplayField'])
                 )
             );
+            $this->findMethod = $findMethod;
             return $query;
         }
         return $results;
@@ -99,9 +109,11 @@ class ListableBehavior extends ModelBehavior {
  * @return array Cake data array
  */
     public function afterFind(Model $model, $results, $primary) {
-        foreach ($results as $row) {
-            if (isset($row[$model->alias])) {
-                $list[$row[$this->settings[$model->alias]['relatedModelName']]['name']][$row[$model->alias]['id']] = $row[$model->alias]['name'];
+        if ($this->findMethod == '_findListing') {
+            foreach ($results as $row) {
+                if (isset($row[$model->alias])) {
+                    $list[$row[$this->settings[$model->alias]['relatedModelName']]['name']][$row[$model->alias]['id']] = $row[$model->alias]['name'];
+                }
             }
         }
 
