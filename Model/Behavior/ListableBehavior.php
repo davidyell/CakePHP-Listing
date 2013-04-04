@@ -22,19 +22,16 @@ class ListableBehavior extends ModelBehavior {
 /**
  * The settings for this behaviour
  *
- * @var array
+ * Example settings,
+ * array(
+ *     'Model' => array(
+ *         'relatedModelName' => 'Example',
+ *     )
+ * )
  *
- * @item mode 'array' or 'string' Control whether you want a string returned
- *  or an optgroup style array
+ * @var array
  */
-    public $settings = array(
-        'relatedModel' => array(
-                'name' => '',
-                'primaryKey' => 'id',
-                'displayField' => 'name'
-            ),
-        'mode' => 'array'
-    );
+    public $settings = array();
 
 /**
  * Add in the listing find method
@@ -54,11 +51,19 @@ class ListableBehavior extends ModelBehavior {
  */
     public function setup(\Model $model, $config = array()) {
         // Add our custom find method to this model
-        $model->findMethods = Hash::merge($model->findMethods, $this->findMethods);
+        $model->findMethods = array_merge($model->findMethods, $this->findMethods);
+
+        // Setup the default settings
+        if (!isset($this->settings[$model->alias])) {
+            $this->settings[$model->alias] = array(
+                'relatedModelPrimaryKey' => 'id',
+                'relatedModelDisplayField' => 'name'
+            );
+        }
 
         // If the behaviour has been configured, merge in the settings
         if (!empty($config)) {
-            $this->settings = Hash::merge($this->settings, $config);
+            $this->settings[$model->alias] = array_merge($this->settings[$model->alias], (array)$config);
         }
     }
 
@@ -76,8 +81,8 @@ class ListableBehavior extends ModelBehavior {
         if ($state == 'before') {
             $query['fields'] = array($model->primaryKey, $model->displayField);
             $query['contain'] = array(
-                $this->settings['relatedModel']['name'] => array(
-                    'fields' => array($this->settings['relatedModel']['primaryKey'], $this->settings['relatedModel']['displayField'])
+                $this->settings[$model->alias]['relatedModelName'] => array(
+                    'fields' => array($this->settings[$model->alias]['relatedModelPrimaryKey'], $this->settings[$model->alias]['relatedModelDisplayField'])
                 )
             );
             return $query;
@@ -92,19 +97,11 @@ class ListableBehavior extends ModelBehavior {
  * @param array $results Cake data array
  * @param boolean $primary
  * @return array Cake data array
- *
- * @throws BadMethodCallException
  */
     public function afterFind(Model $model, $results, $primary) {
         foreach ($results as $row) {
-            if (isset($row[$model->name])) {
-                if ($this->settings['mode'] == 'string') {
-                    $list[$row[$model->name]['id']] = "(" . $row[$this->settings['relatedModel']['primaryKey']]['name'] . ") " . $row[$model->name]['name'];
-                } elseif ($this->settings['mode'] == 'array') {
-                    $list[$row[$this->settings['relatedModel']['name']]['name']][$row[$model->name]['id']] = $row[$model->name]['name'];
-                } else {
-                    throw new BadMethodCallException($this->settings['mode'] . ' is not a valid mode.');
-                }
+            if (isset($row[$model->alias])) {
+                $list[$row[$this->settings[$model->alias]['relatedModelName']]['name']][$row[$model->alias]['id']] = $row[$model->alias]['name'];
             }
         }
 
