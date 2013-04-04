@@ -9,7 +9,7 @@ array(
   2 => 'Second'
 );
 ```  
-..into this using array mode..  
+..into this..
 
 ```
 array(
@@ -21,14 +21,6 @@ array(
   )
 );
 ```  
-..or into this using string mode  
-
-```
-array(
-  1 => '(Cats) First',
-  2 => '(Dogs) Second'
-);
-```
 
 ..and you should end up with nice option groups in your selects.
 ![Select box with optgroup](http://i.imgur.com/QP7BhMl.png)
@@ -38,6 +30,13 @@ This is a standard CakePHP plugin, so it will need to extracted or submoduled in
 
 You will need to activate the plugin in your `app/Config/bootstrap.php` using `CakePlugin::load('Listing')`, unless you are already using `CakePlugin::loadAll()`
 
+#Requirements
+Cake 2  
+Containable,  
+The models you are using with this behaviour must have Containable enabled.  
+`public $actsAs = array('Containable', 'Listing.Listable');`  
+I tend to add Containable to my AppModel as it's handy to have everywhere!
+
 #Usage
 You can attach to the model using the `$actsAs` array. As you would normally. You **must** include the name of the related model that you want to join to when you configure the behaviour.  
 
@@ -46,12 +45,9 @@ You can also specify the fields that you want to use using, `primaryKey` and `di
 ```
 public $actsAs = array(
     'Listing.Listable' => array(
-        'relatedModel' => array(
-            'name' => 'Provider',
-            'primaryKey' => 'id', // optional - default shown
-            'displayField' => 'name' // optional - default shown
-        ),
-        'mode' => 'array' // optional - default shown
+       'relatedModelName' => 'Provider',
+       'relatedPrimaryKey' => 'id', // optional - default shown
+       'relatedDisplayField' => 'name', // optional - default shown
     )
 );
 ```
