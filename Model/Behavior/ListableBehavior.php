@@ -66,7 +66,9 @@ class ListableBehavior extends ModelBehavior {
         if (!isset($this->settings[$model->alias])) {
             $this->settings[$model->alias] = array(
                 'relatedModelPrimaryKey' => 'id',
-                'relatedModelDisplayField' => 'name'
+                'relatedModelDisplayField' => 'name',
+                'defaultSelection' => false,
+                'defaultMessage' => 'Select a '.$model->alias
             );
         }
 
@@ -118,6 +120,10 @@ class ListableBehavior extends ModelBehavior {
         }
 
         if (isset($list) && is_array($list)) {
+            if ($this->settings[$model->alias]['defaultSelection'] === true) {
+                array_unshift($list, $this->settings[$model->alias]['defaultMessage']);
+            }
+
             return $list;
         } else {
             return $results;
