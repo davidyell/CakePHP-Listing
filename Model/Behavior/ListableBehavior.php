@@ -112,7 +112,7 @@ class ListableBehavior extends ModelBehavior {
         if ($this->findMethod == '_findListing') {
             foreach ($results as $row) {
                 if (isset($row[$model->alias])) {
-                    $list[$row[$this->settings[$model->alias]['relatedModelName']]['name']][$row[$model->alias]['id']] = $row[$model->alias]['name'];
+                    $list[$row[$this->settings[$model->alias]['relatedModelName']]['name']][$row[$model->alias]['id']] = $row[$model->alias][$model->displayField];
                 }
             }
         }
