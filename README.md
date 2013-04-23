@@ -1,5 +1,5 @@
 #CakePHP-Listing
-Model behaviour to append a field into a list for a select box. The idea for this behaviour is that if you have a list of items which belong to another model, it will include that models name.
+Model behaviour to append an optgroup into a list for a select box. The idea for this behaviour is that if you have a list of items which belong to another model, it will include that models name.
 
 So we change,  
 
@@ -24,6 +24,9 @@ array(
 
 ..and you should end up with nice option groups in your selects.
 ![Select box with optgroup](http://i.imgur.com/QP7BhMl.png)
+
+#Version
+This is something I'd consider `alpha`. It works for me in a few projects, but it's not been extensivly tested.
 
 #Installation
 This is a standard CakePHP plugin, so it will need to extracted or submoduled into your `app/Plugin` folder. I call it `Listing`, so it should live in `app/Plugin/Listing`.
@@ -57,4 +60,10 @@ public $actsAs = array(
 Then in order to attach the extra model, I have implemented a custom find called `listing` which will return the formatted list.  
 
 For example,
-`$broadbands = $this->Package->Broadband->find('listing');`
+`$broadbands = $this->Package->Broadband->find('listing');`  
+
+#Todo
+* Write some tests
+* Tidy up the source a little
+* Look to refactor
+* Rewrite this README file!
