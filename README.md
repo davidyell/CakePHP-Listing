@@ -34,8 +34,8 @@ This is a standard CakePHP plugin, so it will need to extracted or submoduled in
 You will need to activate the plugin in your `app/Config/bootstrap.php` using `CakePlugin::load('Listing')`, unless you are already using `CakePlugin::loadAll()`
 
 #Requirements
-Cake 2  
-Containable,  
+* Cake 2  
+* Containable  
 The models you are using with this behaviour must have Containable enabled.  
 `public $actsAs = array('Containable', 'Listing.Listable');`  
 I tend to add Containable to my AppModel as it's handy to have everywhere!
