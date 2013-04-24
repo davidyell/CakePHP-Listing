@@ -28,16 +28,16 @@ array(
 It works with multiselect too!  
 ![Multi select box with optgroup](http://i.imgur.com/1t1sRvI.png)
 
-#Version
+##Version
 This is something I'd consider `beta`.  
 I've created tests for this code and it achieves 96.88%.  
 
-#Installation
+##Installation
 This is a standard CakePHP plugin, so it will need to extracted or submoduled into your `app/Plugin` folder. I call it `Listing`, so it should live in `app/Plugin/Listing`.
 
 You will need to activate the plugin in your `app/Config/bootstrap.php` using `CakePlugin::load('Listing')`, unless you are already using `CakePlugin::loadAll()`
 
-#Requirements
+##Requirements
 * Cake 2
 * Containable  
 
@@ -45,11 +45,11 @@ The models you are using with this behaviour must have Containable enabled.
 `public $actsAs = array('Containable', 'Listing.Listable');`  
 I tend to add Containable to my `AppModel` as it's handy to have everywhere!
 
-#Usage
+##Usage
 You can attach to the model using the `$actsAs` array. As you would normally.  
 You **must** include the name of the related model that you want to join to when you configure the behaviour.  
 
-##Configuration
+###Configuration
 
 You can also specify the fields that you want to use using, `primaryKey` and `displayField`.
 
@@ -65,18 +65,18 @@ public $actsAs = array(
 
 [More on Behaviours in the Book](http://book.cakephp.org/2.0/en/models/behaviors.html).
 
-##Getting a listing
+###Getting a listing
 Then in order to attach the extra model, I have implemented a custom find called `listing` which will return the formatted list.
 
 For example,
 `$tags = $this->Post->Tag->find('listing');`
 
-#Todo
-##Alpha
+##Todo
+###Alpha
 * ~~Write some tests~~
 * ~~Tidy up the source a little~~
 * ~~Look to refactor~~
 * ~~Rewrite this README file!~~
 
-##Beta
+###Beta
 * Remove the dependancy on Containble
