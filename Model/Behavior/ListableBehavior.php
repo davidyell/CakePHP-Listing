@@ -58,7 +58,7 @@ class ListableBehavior extends ModelBehavior {
  * @param array $config Configuration settings for $model
  * @return void
  */
-    public function setup(\Model $model, $config = array()) {
+    public function setup(Model $model, $config = array()) {
         // Add our custom find method to this model
         $model->findMethods = array_merge($model->findMethods, $this->findMethods);
 
@@ -77,13 +77,15 @@ class ListableBehavior extends ModelBehavior {
     }
 
 /**
+ * Custom find method to append an extra model onto a set of find conditions
+ * in order to generate an optgroup in the afterFind()
  *
+ * @param Model $model Instance of the current model
+ * @param string $findMethod The current find method, will be 'listing'
+ * @param string $state The state of the find method
+ * @param array $query Cake array of query
+ * @param array $results
  *
- * @param Model $model
- * @param type $findMethod
- * @param type $state
- * @param type $query
- * @param type $results
  * @return array
  */
     public function _findListing(Model $model, $findMethod, $state, $query, $results = array()) {
@@ -112,7 +114,7 @@ class ListableBehavior extends ModelBehavior {
         if ($this->findMethod == '_findListing') {
             foreach ($results as $row) {
                 if (isset($row[$model->alias])) {
-                    $list[$row[$this->settings[$model->alias]['relatedModelName']]['name']][$row[$model->alias]['id']] = $row[$model->alias][$model->displayField];
+                    $list[$row[$this->settings[$model->alias]['relatedModelName']][$this->settings[$model->alias]['relatedModelDisplayField']]][$row[$model->alias]['id']] = $row[$model->alias][$model->displayField];
                 }
             }
         }
