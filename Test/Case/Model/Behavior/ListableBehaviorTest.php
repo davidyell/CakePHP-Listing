@@ -7,9 +7,28 @@
 class ListableBehaviorTest extends CakeTestCase {
 
 /**
- * Setup the test and instantiate any models and fixtures that we need
+ * Detail which fixtures we'd like to use
+ *
+ * @var array
  */
-    public function setUp(){
+    public $fixtures = array(
+        'plugin.listing.post',
+        'plugin.listing.tag',
+    );
+
+/**
+ * I don't want fixtures loaded for every test
+ *
+ * @var bool
+ */
+    public $autoFixtures = false;
+
+/**
+ * Make sure that the custom find method appends the conditions
+ *
+ * @return void
+ */
+    public function testCustomFind() {
         $this->Model = new Model();
         $this->Model->useTable = false;
         $this->Model->primaryKey = 'id';
@@ -20,12 +39,7 @@ class ListableBehaviorTest extends CakeTestCase {
                 'relatedModelDisplayField' => 'name'
             )
         );
-    }
 
-/**
- * Make sure that the custom find method appends the conditions
- */
-    public function testCustomFind() {
         $findMethod = 'listing';
         $state = 'before';
         $query = array();
@@ -44,11 +58,55 @@ class ListableBehaviorTest extends CakeTestCase {
         $this->assertEqual($result, $expected);
     }
 
-    // Make sure the array has the optgroup
+/**
+ * Ensure that running a find with the behaviour attached, we do actually
+ * get some optgroups in the array back
+ *
+ * @return void
+ */
     public function testResultsArrayHasOptGroups() {
-        
-    }
+        $this->loadFixtures('Post', 'Tag');
 
-    // Test to make sure that the array which comes back from a find() is correct
+        $this->Post = ClassRegistry::init('Post');
+        $this->Tag = ClassRegistry::init('Tag');
+
+        $this->Post->displayField = 'title';
+
+        $this->Tag->Behaviors->attach('Listing.Listable', array(
+                'relatedModelName' => 'Post',
+                'relatedModelDisplayField' => 'title',
+            )
+        );
+
+        $this->Post->bindModel(array(
+            'hasMany' => array(
+                'Tag' => array(
+                    'className' => 'Tag',
+                    'foreignKey' => 'post_id',
+                )
+            ))
+        );
+        $this->Tag->bindModel(array(
+            'belongsTo' => array(
+                'Post' => array(
+                    'className' => 'Post',
+                    'foreignKey' => 'post_id',
+                )
+            ))
+        );
+
+        $expected = array(
+            'First post' => array(
+                1 => 'Cats',
+                2 => 'Dogs',
+            ),
+            'Second post' => array(
+                3 => 'Fish'
+            )
+        );
+        $result = $this->Post->Tag->find('listing');
+
+        $this->assertEqual($result, $expected);
+    }
 
 }
