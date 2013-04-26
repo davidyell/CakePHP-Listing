@@ -74,8 +74,6 @@ class ListableBehavior extends ModelBehavior {
         if (!empty($config)) {
             $this->settings[$model->alias] = array_merge($this->settings[$model->alias], (array)$config);
         }
-
-        var_dump($this->settings);
     }
 
 /**
@@ -121,8 +119,6 @@ class ListableBehavior extends ModelBehavior {
                 if (isset($row[$model->alias])) {
                     $name = $this->settings[$model->alias]['relatedModelName'];
                     $display = $this->settings[$model->alias]['relatedModelDisplayField'];
-
-                    var_dump($row);
 
                     $optgroup = $row[$name][$display];
                     $id = $row[$model->alias]['id'];

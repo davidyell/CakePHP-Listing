@@ -71,6 +71,7 @@ class ListableBehaviorTest extends CakeTestCase {
 
         $this->Tag = ClassRegistry::init('Tag');
 
+        $this->Tag->Behaviors->attach('Containable');
         $this->Tag->Behaviors->attach('Listing.Listable', array(
                 'relatedModelName' => 'Post',
                 'relatedModelDisplayField' => 'title',
