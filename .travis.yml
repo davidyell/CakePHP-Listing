@@ -1,0 +1,34 @@
+language: php
+
+php:
+#  - 5.3
+  - 5.4
+
+env:
+  - CAKE_VERSION=2.3.3
+#  - CAKE_VERSION=master
+
+before_script:
+  - mysql -e "CREATE DATABASE cakephp_test;"
+  - git clone --depth 1 --branch $CAKE_VERSION git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp
+  - chmod -R 777 ./app/tmp
+  - cp -R ../CakePHP-Listing app/Plugin/Listing
+  - set +H
+  - echo "<?php
+    class DATABASE_CONFIG {
+      public \$test = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => '127.0.0.1',
+        'login' => 'root',
+        'password' => '',
+        'database' => 'cakephp_test',
+        'prefix' => '',
+      );
+    }" > app/Config/database.php
+
+script:
+  - ./lib/Cake/Console/cake test Listing Model/Behavior/ListableBehavior
+
+notifications:
+  email: false
