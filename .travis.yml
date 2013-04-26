@@ -16,8 +16,6 @@ before_script:
   - set +H
   - echo "<?php
     class DATABASE_CONFIG {
-      private \$identities = array();
-
       public \$test = array(
         'datasource' => 'Database/Mysql',
         'persistent' => false,
@@ -27,23 +25,6 @@ before_script:
         'database' => 'cakephp_test',
         'prefix' => '',
       );
-
-      public function __construct() {
-        \$db = 'mysql';
-        if (!empty(\$_SERVER['DB'])) {
-          \$db = \$_SERVER['DB'];
-        }
-        foreach (array('test') as \$source) {
-          \$config = array_merge(\$this->{\$source}, \$this->identities[\$db]);
-          if (is_array(\$config['database'])) {
-            \$config['database'] = \$config['database'][\$source];
-          }
-          if (!empty(\$config['schema']) && is_array(\$config['schema'])) {
-            \$config['schema'] = \$config['schema'][\$source];
-          }
-          \$this->{\$source} = \$config;
-        }
-      }
     }" > app/Config/database.php
 
 script:
