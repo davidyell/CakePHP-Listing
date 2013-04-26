@@ -71,10 +71,7 @@ class ListableBehaviorTest extends CakeTestCase {
     public function testResultsArrayHasOptGroups() {
         $this->loadFixtures('Post', 'Tag');
 
-        $this->Post = ClassRegistry::init('Post');
         $this->Tag = ClassRegistry::init('Tag');
-
-        $this->Post->displayField = 'title';
 
         $this->Tag->Behaviors->attach('Listing.Listable', array(
                 'relatedModelName' => 'Post',
@@ -82,14 +79,6 @@ class ListableBehaviorTest extends CakeTestCase {
             )
         );
 
-        $this->Post->bindModel(array(
-            'hasMany' => array(
-                'Tag' => array(
-                    'className' => 'Tag',
-                    'foreignKey' => 'post_id',
-                )
-            ))
-        );
         $this->Tag->bindModel(array(
             'belongsTo' => array(
                 'Post' => array(
