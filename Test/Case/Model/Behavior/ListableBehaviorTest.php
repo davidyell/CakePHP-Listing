@@ -6,6 +6,10 @@
  */
 class ListableBehaviorTest extends CakeTestCase {
 
+    private $Model = null;
+    private $Post = null;
+    private $Tag = null;
+
 /**
  * Detail which fixtures we'd like to use
  *
@@ -104,7 +108,7 @@ class ListableBehaviorTest extends CakeTestCase {
                 3 => 'Fish'
             )
         );
-        $result = $this->Post->Tag->find('listing');
+        $result = $this->Tag->find('listing');
 
         $this->assertEqual($result, $expected);
     }
