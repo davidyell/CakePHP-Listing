@@ -74,6 +74,8 @@ class ListableBehavior extends ModelBehavior {
         if (!empty($config)) {
             $this->settings[$model->alias] = array_merge($this->settings[$model->alias], (array)$config);
         }
+
+        var_dump($this->settings);
     }
 
 /**
