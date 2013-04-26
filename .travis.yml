@@ -10,7 +10,7 @@ env:
 
 before_script:
   - git clone --depth 1 --branch $CAKE_VERSION git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp
-  - cp CakePHP-Listing app/Plugin/Listing
+  - cp -R ../CakePHP-Listing app/Plugin/Listing
 
 script:
   - ./lib/Cake/Console/cake test Listing Model/Behavior/ListableBehavior
