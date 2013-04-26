@@ -120,6 +120,8 @@ class ListableBehavior extends ModelBehavior {
                     $name = $this->settings[$model->alias]['relatedModelName'];
                     $display = $this->settings[$model->alias]['relatedModelDisplayField'];
 
+                    var_dump($row);
+
                     $optgroup = $row[$name][$display];
                     $id = $row[$model->alias]['id'];
 
