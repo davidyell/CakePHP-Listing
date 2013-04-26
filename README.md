@@ -22,15 +22,17 @@ array(
 );
 ```
 
-..and you should end up with nice option groups in your selects.  
-![Select box with optgroup](http://i.imgur.com/QP7BhMl.png)  
+..and you should end up with nice option groups in your selects.
+![Select box with optgroup](http://i.imgur.com/QP7BhMl.png)
 
-It works with multiselect too!  
+It works with multiselect too!
 ![Multi select box with optgroup](http://i.imgur.com/1t1sRvI.png)
 
 ##Version
-This is something I'd consider `beta`.  
-I've created tests for this code and it achieves 96.88%.  
+This is something I'd consider `beta`.
+I've created tests for this code and it achieves 96.88%.
+[![Build Status](https://travis-ci.org/davidyell/CakePHP-Listing.png?branch=master)](https://travis-ci.org/davidyell/CakePHP-Listing)
+
 
 ##Installation
 This is a standard CakePHP plugin, so it will need to extracted or submoduled into your `app/Plugin` folder. I call it `Listing`, so it should live in `app/Plugin/Listing`.
@@ -39,15 +41,15 @@ You will need to activate the plugin in your `app/Config/bootstrap.php` using `C
 
 ##Requirements
 * Cake 2
-* Containable  
+* Containable
 
-The models you are using with this behaviour must have Containable enabled.  
-`public $actsAs = array('Containable', 'Listing.Listable');`  
+The models you are using with this behaviour must have Containable enabled.
+`public $actsAs = array('Containable', 'Listing.Listable');`
 I tend to add Containable to my `AppModel` as it's handy to have everywhere!
 
 ##Usage
-You can attach to the model using the `$actsAs` array. As you would normally.  
-You **must** include the name of the related model that you want to join to when you configure the behaviour.  
+You can attach to the model using the `$actsAs` array. As you would normally.
+You **must** include the name of the related model that you want to join to when you configure the behaviour.
 
 ###Configuration
 
