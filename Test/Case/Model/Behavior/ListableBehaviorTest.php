@@ -7,7 +7,6 @@
 class ListableBehaviorTest extends CakeTestCase {
 
     private $Model = null;
-    private $Post = null;
     private $Tag = null;
 
 /**
@@ -44,7 +43,6 @@ class ListableBehaviorTest extends CakeTestCase {
             )
         );
 
-        $findMethod = 'listing';
         $state = 'before';
         $query = array();
 

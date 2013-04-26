@@ -74,9 +74,6 @@ class ListableBehavior extends ModelBehavior {
         if (!empty($config)) {
             $this->settings[$model->alias] = array_merge($this->settings[$model->alias], (array)$config);
         }
-
-        var_dump($this->settings);
-        ini_set('error_reporting', E_ALL);
     }
 
 /**
@@ -118,7 +115,6 @@ class ListableBehavior extends ModelBehavior {
  */
     public function afterFind(Model $model, $results, $primary) {
         if ($this->findMethod == '_findListing') {
-            var_dump($model->alias);
             foreach ($results as $row) {
                 if (isset($row[$model->alias])) {
                     $name = $this->settings[$model->alias]['relatedModelName'];
