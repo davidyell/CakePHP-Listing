@@ -16,7 +16,7 @@ before_script:
   - set +H
   - echo "<?php
     class DATABASE_CONFIG {
-      private $identities = array();
+      private \$identities = array();
 
       public \$test = array(
         'datasource' => 'Database/Mysql',
