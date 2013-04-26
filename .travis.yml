@@ -9,7 +9,7 @@ env:
   - CAKE_VERSION=master
 
 before_script:
-  - mysql -e "CREATE DATABASE cakephp_test";
+  - mysql -e "CREATE DATABASE cakephp_test;"
   - git clone --depth 1 --branch $CAKE_VERSION git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp
   - chmod -R 777 ./app/tmp
   - cp -R ../CakePHP-Listing app/Plugin/Listing
@@ -18,8 +18,8 @@ before_script:
       public \$test = array(
         'datasource' => 'Database/Mysql',
         'persistent' => false,
-        'host' => '',
-        'login' => '',
+        'host' => '127.0.0.1',
+        'login' => 'root',
         'password' => '',
         'database' => 'cakephp_test',
         'prefix' => '',
