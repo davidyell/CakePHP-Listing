@@ -22,15 +22,15 @@ array(
 );
 ```
 
-..and you should end up with nice option groups in your selects.
+..and you should end up with nice option groups in your selects.  
 ![Select box with optgroup](http://i.imgur.com/QP7BhMl.png)
 
-It works with multiselect too!
+It works with multiselect too!  
 ![Multi select box with optgroup](http://i.imgur.com/1t1sRvI.png)
 
 ##Version
-This is something I'd consider `beta`.
-I've created tests for this code and it achieves 96.88%.
+This is something I'd consider `beta`.  
+I've created tests for this code and it achieves 96.88%.  
 [![Build Status](https://travis-ci.org/davidyell/CakePHP-Listing.png?branch=master)](https://travis-ci.org/davidyell/CakePHP-Listing)
 
 
