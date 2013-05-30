@@ -51,6 +51,8 @@ I tend to add Containable to my `AppModel` as it's handy to have everywhere!
 You can attach to the model using the `$actsAs` array. As you would normally.
 You **must** include the name of the related model that you want to join to when you configure the behaviour.
 
+This is usually the parent model in the relationship, as the behaviour will attach to the child. So if you want to list `Broadband` by `Provider` you would attach the behaviour to the `Broadband` model, and configure the `relatedModelName` as `Provider`.
+
 ###Configuration
 
 You can also specify the fields that you want to use using, `primaryKey` and `displayField`.
@@ -58,9 +60,9 @@ You can also specify the fields that you want to use using, `primaryKey` and `di
 ```php
 public $actsAs = array(
     'Listing.Listable' => array(
-       'relatedModelName' => 'Provider',
-       'relatedPrimaryKey' => 'id', // optional - default shown
-       'relatedDisplayField' => 'name', // optional - default shown
+       'relatedModelName' => 'Provider', // Example - this should be the parent model, the one you want to group by
+       'relatedModelPrimaryKey' => 'id', // optional - default shown
+       'relatedModelDisplayField' => 'name', // optional - default shown
     )
 );
 ```
@@ -71,7 +73,7 @@ public $actsAs = array(
 Then in order to attach the extra model, I have implemented a custom find called `listing` which will return the formatted list.
 
 For example,
-`$tags = $this->Post->Tag->find('listing');`
+`$broadbands = $this->Broadband->find('listing');`
 
 ##Todo
 ###Alpha
