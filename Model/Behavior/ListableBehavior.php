@@ -102,37 +102,20 @@ class ListableBehavior extends ModelBehavior {
             $this->findMethod = $findMethod;
             return $query;
         }
-        return $results;
-    }
+        
+        // Format the results
+        foreach ($results as $row) {
+            if (isset($row[$model->alias])) {
+                $name = $this->settings[$model->alias]['relatedModelName'];
+                $display = $this->settings[$model->alias]['relatedModelDisplayField'];
 
-/**
- * Changes a list of data into a list with extra information
- *
- * @param \Model $model The calling model
- * @param array $results Cake data array
- * @param boolean $primary
- * @return array Cake data array
- */
-    public function afterFind(Model $model, $results, $primary) {
-        if ($this->findMethod == '_findListing') {
-            foreach ($results as $row) {
-                if (isset($row[$model->alias])) {
-                    $name = $this->settings[$model->alias]['relatedModelName'];
-                    $display = $this->settings[$model->alias]['relatedModelDisplayField'];
+                $optgroup = $row[$name][$display];
+                $id = $row[$model->alias]['id'];
 
-                    $optgroup = $row[$name][$display];
-                    $id = $row[$model->alias]['id'];
-
-                    $list[$optgroup][$id] = $row[$model->alias][$model->displayField];
-                }
+                $list[$optgroup][$id] = $row[$model->alias][$model->displayField];
             }
         }
-
-        if (isset($list) && is_array($list)) {
-            return $list;
-        } else {
-            return $results;
-        }
+        
+        return $list;
     }
-
 }
