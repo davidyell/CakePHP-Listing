@@ -84,3 +84,4 @@ For example,
 
 ###Beta
 * Remove the dependancy on Containble
+* Thrown an exception if the models are not related
