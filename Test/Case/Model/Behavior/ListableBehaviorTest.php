@@ -70,6 +70,7 @@ class ListableBehaviorTest extends CakeTestCase {
         $this->loadFixtures('Post', 'Tag');
 
         $this->Tag = ClassRegistry::init('Tag');
+        $this->Tag->displayField = 'name';
 
         $this->Tag->Behaviors->attach('Containable');
         $this->Tag->Behaviors->attach('Listing.Listable', array(
@@ -77,7 +78,7 @@ class ListableBehaviorTest extends CakeTestCase {
                 'relatedModelDisplayField' => 'title',
             )
         );
-
+        
         $this->Tag->bindModel(array(
             'belongsTo' => array(
                 'Post' => array(
@@ -86,7 +87,7 @@ class ListableBehaviorTest extends CakeTestCase {
                 )
             ))
         );
-
+        
         $expected = array(
             'First post' => array(
                 1 => 'Cats',
