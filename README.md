@@ -1,5 +1,6 @@
 #CakePHP-Listing
-Model behaviour to append an [optgroup](http://www.w3schools.com/tags/tag_optgroup.asp) into a list for a select box. The idea for this behaviour is that if you have a list of items which belong to another model, it will include that models name. So if you are looking for a specific item by it's relation, this will make that easier.
+Model behaviour to append an [optgroup](http://www.w3schools.com/tags/tag_optgroup.asp) into a list for a select box. The idea for this behaviour is that if you have a list of items which belong to another model, it will include that models name. So if you are looking for a specific item by it's relation, this will make that easier.  
+**Website** [http://jedistirfry.co.uk/CakePHP-Listing/](http://jedistirfry.co.uk/CakePHP-Listing/)
 
 So we change,
 
