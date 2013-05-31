@@ -31,44 +31,88 @@
 
       <section>
         <div id="title">
-          <h1>Cakephp-listing</h1>
+          <h1>CakePHP-Listing</h1>
           <p>Model behaviour to append a name to a select</p>
           <hr>
           <span class="credits left">Project maintained by <a href="https://github.com/davidyell">davidyell</a></span>
           <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
         </div>
 
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <div id="content">
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+          <h3>CakePHP Listing Behaviour</h3>
+          <p>This is a behaviour that I've written to group items in a select field into optgroups so that a large selection of data can be displayed to users whilst maintaining the relations between the data and it's parents.</p>
+          <p>It came about because in most CMS you are always listing a selection of items, such as tags, categories, or attributes but you might want to only allow certain groupings to be added.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+          <h3>What's it for?</h3>
+          <p>By default using <code>$this->Model->find('list');</code> will always just return a list of items in the format of <code>array('id' => 'field');</code> which doesn't add any extra information.</p>
+          <p>The behaviour converts this into a grouped set of data instead.</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+          <div class="figure">
+            <img src="https://a248.e.akamai.net/camo.github.com/c42495fce7f573834428553817e1cf8ecde2b535/687474703a2f2f692e696d6775722e636f6d2f51503742684d6c2e706e67" alt="Example image of select"><br>
+            <small>The behaviour in a regular select element</small>
+          </div>
+          <div class="figure">
+            <img src="https://a248.e.akamai.net/camo.github.com/fcea2cfc821ffc18d274ea22579c0f1953cf0d35/687474703a2f2f692e696d6775722e636f6d2f317431735276492e706e67" alt="Example image of multiselect"><br>
+            <small>It even works with multiselect too!</small>
+          </div>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+          <h3>Requirements</h3>
+          <ul>
+            <li>CakePHP 2.x+</li>
+            <li>Containable enabled on the model</li>
+          </ul>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+          <h3>How do I install it?</h3>
+          <p>By finding this site you've probably already found the repository, but you can find the source code for the plugin on Github. There are links in the top navigation.</p>
+          <p>There are a number of options for getting the code. </p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+          <h4>Download</h4>
+          <p>Download an archive of the plugin and extract it to your <code>app/Plugin/Listing</code> folder.</p>
+          <h4>Git</h4>
+          <p>You can clone the repository into your <code>app/Plugin/Listing</code> folder.</p>
+          <p><pre><code>$ git clone https://github.com/davidyell/CakePHP-Listing.git app/Plugin/Listing</code></pre></p>
+          <p>It's also possible to add the plugin as a submodule.</p>
+          <p><pre><code>$ git submodule add https://github.com/davidyell/CakePHP-Listing.git app/Plugin/listing</code></pre></p>
+          <h4>Composer</h4>
+          <p>The plugin is available on Packagist for inclusion in projects using <a href="http://getcomposer.org/">Composer</a>.</p>
+          <p><a href="https://packagist.org/packages/davidyell/listing" title="Plugin on Packagist">https://packagist.org/packages/davidyell/listing</a></p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+          <h3>Setup</h3>
+          <p>Firstly you need to load the plugin in your <code>app/Config/bootstrap.php</code> using <code>CakePlugin::load('Listing.Listable');</code>. If you are already using <code>CakePlugin::loadAll();</code> then the plugin will already be loaded.</p>
+          <p>The model you want to attach the behaviour to will need to have the <code>Containable</code> behaviour. I tend to add this to my <code>Model/AppModel.php</code> so that it's available everywhere for ease of use.</p>
+          <p>Configure your models behaviours
+<pre><code>public $actsAs = array(
+    'Containable', // If you've not added it to AppModel
+    'Listing.Listable' => array(
+        'relatedModelName' => 'Model', 
+        'relatedModelPrimaryKey' => 'id', // Optional - default shown
+        'relatedModelDisplayField' => 'name' // Optional - default shown
+    )
+);</pre></code>
+          </p>
+          <p><code>relatedModelName</code> is the name of the model that you want to group items by. It will need to be related to the model you are working in. This will usually be a <code>belongsTo</code> relationship.</p>
+          <p><code>relatedModelDisplayField</code> is the name of the field that you want to display in the select element.</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+          <h3>How do I use it?</h3>
+          <p>Once you have completed the setup, and your behaviours are attached. You will want to create a listing and pass it to the view.</p>
+          <p>In your controllers method you need to use the custom find method <code>listing</code>.</p>
+<pre><code>$items = $this->Model->find('listing');
+$this->set('items', $items);
+</pre></code>
+          <p>In your view, if your field isn't automatic you can add the new listing items to your field.</p>
+<pre><code>$this->Form->input('field', array('type' => 'select', 'options' => $items));</code></pre>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+          <h3>Version, Tests and Contributing</h3>
+          <p>Currently in beta stage, it's reliable and it works, but you never know.<p>
+          <p>There are Tests written which achieve 96.88% coverage.</p>
+          <p>The project is setup on Travis CI and is currently, <img src="https://travis-ci.org/davidyell/CakePHP-Listing.png?branch=master" alt="Travis status"></p>
+          <h4>Contributions and issues</h4>
+          <p>If you find any issues, bug or would like to contribute code, please either <a href="https://github.com/davidyell/CakePHP-Listing/issues?state=open">submit a ticket</a> or <a href="https://github.com/davidyell/CakePHP-Listing">fork</a> and create a pull request.</p>
+          <p>Please ensure that pull requests are submitted to the <code>develop</code> branch.</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+        </div>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
       </section>
 
     </div>

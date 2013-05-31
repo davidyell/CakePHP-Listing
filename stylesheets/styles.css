@@ -576,7 +576,11 @@ h3 {
   line-height: 24px;
   font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   font-weight: normal;
-  color: #b6b6b6;
+  color: #fff;
+}
+
+h4 {
+  color: #dbdbdb;
 }
 
 a {
@@ -626,8 +630,8 @@ code {
   font-family: "Lucida Sans", Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color: #efefef;
   font-size: 13px;
-  margin: 0 4px;
-  padding: 4px 6px;
+  margin: 0;
+  padding: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   -o-border-radius: 2px;
@@ -818,6 +822,19 @@ section #title .credits.left {
 }
 section #title .credits.right {
   float: right;
+}
+section #content .figure {
+  width: 300px;
+  margin: 0 auto 15px;
+  padding: 10px;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 4px;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+section #content .figure small {
+  color: #333;
 }
 
 @media print, screen and (max-width: 720px) {
