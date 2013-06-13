@@ -1,11 +1,11 @@
 language: php
 
 php:
-#  - 5.3
+  - 5.3
   - 5.4
 
 env:
-  - CAKE_VERSION=2.3.3
+  - CAKE_VERSION=2.3.6
 #  - CAKE_VERSION=master
 
 before_script:
