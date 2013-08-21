@@ -27,6 +27,8 @@ before_script:
         'prefix' => '',
       );
     }" > app/Config/database.php
+  - curl -s http://getcomposer.org/installer | php
+  - php composer.phar install --dev --no-interaction
 
 script:
   - ./lib/Cake/Console/cake test Listing Model/Behavior/ListableBehavior
