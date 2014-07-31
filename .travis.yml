@@ -5,8 +5,7 @@ php:
   - 5.5
 
 env:
-#  - CAKE_VERSION=2.3.9
-  - CAKE_VERSION=2.4.5
+  - CAKE_VERSION=2.5.3
 #  - CAKE_VERSION=master
 
 before_script:
