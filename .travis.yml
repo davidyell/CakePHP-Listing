@@ -9,6 +9,7 @@ env:
 #  - CAKE_VERSION=master
 
 before_script:
+  - composer install
   - mysql -e "CREATE DATABASE cakephp_test;"
   - git clone --depth 1 --branch $CAKE_VERSION git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp
   - chmod -R 777 ./app/tmp
