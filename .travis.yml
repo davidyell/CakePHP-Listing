@@ -10,6 +10,7 @@ env:
 
 before_script:
   - composer install
+  - composer global require "phpunit/phpunit=3.7.*"
   - phpenv rehash
   - mysql -e "CREATE DATABASE cakephp_test;"
   - git clone --depth 1 --branch $CAKE_VERSION git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp

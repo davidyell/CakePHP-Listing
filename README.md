@@ -1,5 +1,5 @@
 #CakePHP-Listing
-Model behaviour to append an [optgroup](http://www.w3schools.com/tags/tag_optgroup.asp) into a list for a select box. The idea for this behaviour is that if you have a list of items which belong to another model, it will include that models name. So if you are looking for a specific item by it's relation, this will make that easier.  
+Model behaviour to append an [optgroup](http://www.w3schools.com/tags/tag_optgroup.asp) into a list for a select box. The idea for this behaviour is that if you have a list of items which belong to another model, it will include that models name. So if you are looking for a specific item by it's relation, this will make that easier.
 I have created a website for the plugin, with more detailed information. [http://jedistirfry.co.uk/CakePHP-Listing/](http://jedistirfry.co.uk/CakePHP-Listing/)
 
 So we change,
@@ -23,16 +23,16 @@ array(
 );
 ```
 
-..and you should end up with nice option groups in your selects.  
+..and you should end up with nice option groups in your selects.
 ![Select box with optgroup](http://i.imgur.com/QP7BhMl.png)
 
-It works with multiselect too!  
+It works with multiselect too!
 ![Multi select box with optgroup](http://i.imgur.com/1t1sRvI.png)
 
 ##Version
-This is something I'd consider `beta`.  
-I've created tests for this code and it achieves 96.88%.  
-[![Build Status](https://travis-ci.org/davidyell/CakePHP-Listing.png?branch=master)](https://travis-ci.org/davidyell/CakePHP-Listing)
+This is something I'd consider `beta`.
+I've created tests for this code and it achieves 96.88%.
+[![Build Status](https://travis-ci.org/davidyell/CakePHP-Listing.svg?branch=master)](https://travis-ci.org/davidyell/CakePHP-Listing)
 
 
 ##Installation
