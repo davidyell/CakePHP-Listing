@@ -34,7 +34,7 @@ script:
   - ./lib/Cake/Console/cake test Listing Model/Behavior/ListableBehavior
 
 after_script:
-  - php ../vendor/bin/coveralls -v
+  - php ./vendor/bin/coveralls -v
 
 notifications:
   email: false
