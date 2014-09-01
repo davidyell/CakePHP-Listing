@@ -76,6 +76,22 @@ Then in order to attach the extra model, I have implemented a custom find called
 For example,
 `$broadbands = $this->Broadband->find('listing');`
 
+###Customising your listing
+The easiest way to customise the display of your listing is to use the models `$virtualFields` property to create new fields which you can then pass into the find. Let's look at an example.
+
+We want a listing of all the Users grouped by role. However our database has both `first_name` and `last_name`, but we want to display a listing of the users full name. We can create a virtual field and select that.
+
+```php
+<?php
+// app/Model/User.php
+public $virtualFields = [
+    'full_name' => 'CONCAT(User.first_name, ' ', User.last_name)'
+];
+
+// app/Controller/UsersController.php
+$users = $this->User->find('listing', ['fields' => ['id', 'full_name']]);
+```
+
 ##Todo
 ###Alpha
 * ~~Write some tests~~
