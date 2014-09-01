@@ -89,8 +89,13 @@ class ListableBehavior extends ModelBehavior {
  * @return array
  */
     public function _findListing(Model $model, $findMethod, $state, $query, $results = array()) {
+		if (empty($query['fields'])) {
+			$fields = array($model->primaryKey, $model->displayField);
+		} else {
+			$fields = $query['fields'];
+		}
+
         if ($state == 'before') {
-            $query['fields'] = array($model->primaryKey, $model->displayField);
             $query['contain'] = array(
                 $this->settings[$model->alias]['relatedModelName'] => array(
                     'fields' => array(
@@ -102,7 +107,7 @@ class ListableBehavior extends ModelBehavior {
             $this->findMethod = $findMethod;
             return $query;
         }
-        
+
         // Format the results
         foreach ($results as $row) {
             if (isset($row[$model->alias])) {
@@ -110,9 +115,9 @@ class ListableBehavior extends ModelBehavior {
                 $display = $this->settings[$model->alias]['relatedModelDisplayField'];
 
                 $optgroup = $row[$name][$display];
-                $id = $row[$model->alias]['id'];
+                $id = $row[$model->alias][$fields[0]];
 
-                $list[$optgroup][$id] = $row[$model->alias][$model->displayField];
+                $list[$optgroup][$id] = $row[$model->alias][$fields[1]];
             }
         }
         
