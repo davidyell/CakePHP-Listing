@@ -27,11 +27,43 @@ class ListableBehaviorTest extends CakeTestCase {
     public $autoFixtures = false;
 
 /**
+ * Provide various configurations to the custom finder
+ *
+ * @return array
+ */
+	public function customFindProvider() {
+		return [
+			[
+				[],
+				[
+					'contain' => [
+						'RelatedModel' => [
+							'fields' => ['id', 'name']
+						]
+					]
+				]
+			],
+			[
+				['fields' => ['id', 'title']],
+				[
+					'fields' => ['id', 'title'],
+					'contain' => [
+						'RelatedModel' => [
+							'fields' => ['id', 'name']
+						]
+					]
+				]
+			]
+		];
+	}
+
+/**
  * Make sure that the custom find method appends the conditions
  *
+ * @dataProvider customFindProvider
  * @return void
  */
-    public function testCustomFind() {
+    public function testCustomFind($query, $expected) {
         $this->Model = new Model();
         $this->Model->useTable = false;
         $this->Model->primaryKey = 'id';
@@ -44,19 +76,8 @@ class ListableBehaviorTest extends CakeTestCase {
         );
 
         $state = 'before';
-        $query = array();
-
-        $expected = array(
-            'fields' => array('id', 'display'),
-            'contain' => array(
-                'RelatedModel' => array(
-                    'fields' => array('id','name')
-                )
-            )
-        );
 
         $result = $this->Model->_findListing($state, $query);
-
         $this->assertEqual($result, $expected);
     }
 
